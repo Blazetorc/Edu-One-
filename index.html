@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edu One – School Management ERP</title>
+  <meta name="description" content="Edu One ERP Dashboard – A modern, comprehensive school management system for administrators and educators." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">school</span>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Edu One</span>
+        <span class="brand-sub">School Management</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard', this)">
+        <span class="material-symbols-outlined nav-icon">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-page="students" onclick="navigateTo('students', this)">
+        <span class="material-symbols-outlined nav-icon">school</span>
+        <span>Students</span>
+      </a>
+      <a href="#" class="nav-item" data-page="attendance" onclick="navigateTo('attendance', this)">
+        <span class="material-symbols-outlined nav-icon">event_available</span>
+        <span>Attendance</span>
+      </a>
+      <a href="#" class="nav-item" data-page="marks" onclick="navigateTo('marks', this)">
+        <span class="material-symbols-outlined nav-icon">description</span>
+        <span>Exams & Marks</span>
+      </a>
+      <a href="#" class="nav-item" data-page="staff" onclick="navigateTo('staff', this)">
+        <span class="material-symbols-outlined nav-icon">badge</span>
+        <span>Staff</span>
+      </a>
+      <a href="#" class="nav-item" data-page="messaging" onclick="navigateTo('messaging', this)">
+        <span class="material-symbols-outlined nav-icon">mail</span>
+        <span>Messaging</span>
+        <span class="nav-badge">3</span>
+      </a>
+      <a href="#" class="nav-item" data-page="reports" onclick="navigateTo('reports', this)">
+        <span class="material-symbols-outlined nav-icon">assessment</span>
+        <span>Reports</span>
+      </a>
+      <a href="#" class="nav-item" data-page="promotion" onclick="navigateTo('promotion', this)">
+        <span class="material-symbols-outlined nav-icon">trending_up</span>
+        <span>Promotion</span>
+      </a>
+      <div class="nav-divider"></div>
+      <a href="#" class="nav-item" data-page="settings" onclick="navigateTo('settings', this)">
+        <span class="material-symbols-outlined nav-icon">settings</span>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="user-avatar-wrap">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUjhhmeosMpjnnnBg03X08f5j9PA8AwYyswPVoivho5Elat-FPmvjPhlB9p8cyvukkFqXPEHnypHANNXmp4hv1OMlWODScQWjIPJObPymTKDt8CpgJQTHAZIeWaZancKVSUiMNUEFFYwWB0PeFER0nYQ4uJ4WLqwDnsWSMMFQpbEOoTqx-cJkM-oA2MgPmT1EIKe90HLkArmGi3IcDMOGt-_QSxD39GCAx30qMzKG-nVNCLbJarROA_g" alt="Admin" class="user-avatar" />
+      </div>
+      <div class="user-info">
+        <span class="user-name">Admin User</span>
+        <span class="user-role">Principal Office</span>
+      </div>
+      <button class="icon-btn" title="Logout">
+        <span class="material-symbols-outlined" style="font-size:18px;">logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===== TOPBAR ===== -->
+  <header class="topbar" id="topbar">
+    <div class="topbar-left">
+      <button class="icon-btn sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div class="search-wrap">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input type="text" class="search-input" id="globalSearch" placeholder="Search students, staff, reports..." autocomplete="off" />
+        <kbd class="search-kbd">⌘K</kbd>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn notif-btn" title="Notifications">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="topbar-divider"></div>
+      <button class="btn-ghost">Support</button>
+      <button class="btn-primary" id="newEntryBtn">
+        <span class="material-symbols-outlined" style="font-size:16px;">add</span>
+        New Entry
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content" id="mainContent">
+
+    <!-- ===== PAGE: DASHBOARD ===== -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div class="breadcrumb">
+          <span>Home</span>
+          <span class="material-symbols-outlined bc-icon">chevron_right</span>
+          <span class="bc-active">Dashboard</span>
+        </div>
+        <div class="page-title-row">
+          <div>
+            <h1 class="page-title">System Overview</h1>
+            <p class="page-subtitle">Real-time statistics for Academic Year 2024–25</p>
+          </div>
+          <div class="flex-gap">
+            <button class="btn-secondary">
+              <span class="material-symbols-outlined" style="font-size:16px;">calendar_today</span>
+              Today
+            </button>
+            <button class="btn-secondary">
+              <span class="material-symbols-outlined" style="font-size:16px;">file_download</span>
+              Export PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card" style="--accent:#004ac6;--accent-bg:#dbe1ff;">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">group</span>
+            </div>
+            <span class="kpi-badge kpi-badge--blue">+2.4%</span>
+          </div>
+          <p class="kpi-label">Total Students</p>
+          <p class="kpi-value counter" data-target="1240">0</p>
+          <div class="kpi-trend">
+            <span class="material-symbols-outlined trend-up">trending_up</span>
+            <span>Since last term</span>
+          </div>
+        </div>
+
+        <div class="kpi-card" style="--accent:#16a34a;--accent-bg:#dcfce7;">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">how_to_reg</span>
+            </div>
+            <span class="kpi-badge kpi-badge--green">95.1%</span>
+          </div>
+          <p class="kpi-label">Present Today</p>
+          <p class="kpi-value counter" data-target="1180">0</p>
+          <div class="kpi-trend">
+            <span class="material-symbols-outlined trend-up">trending_up</span>
+            <span>Above monthly avg</span>
+          </div>
+        </div>
+
+        <div class="kpi-card" style="--accent:#7c3aed;--accent-bg:#ede9fe;">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">supervisor_account</span>
+            </div>
+            <span class="kpi-badge kpi-badge--purple">Active</span>
+          </div>
+          <p class="kpi-label">Staff Count</p>
+          <p class="kpi-value counter" data-target="85">0</p>
+          <div class="kpi-trend">
+            <span class="material-symbols-outlined trend-neutral">remove</span>
+            <span>No change</span>
+          </div>
+        </div>
+
+        <div class="kpi-card" style="--accent:#ba1a1a;--accent-bg:#ffdad6;">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">assignment_late</span>
+            </div>
+            <span class="kpi-badge kpi-badge--red">Critical</span>
+          </div>
+          <p class="kpi-label">Upcoming Exams</p>
+          <p class="kpi-value counter" data-target="4">0</p>
+          <div class="kpi-trend">
+            <span class="material-symbols-outlined trend-down">trending_down</span>
+            <span>Next: 3 days</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-row">
+        <!-- Attendance Trend -->
+        <div class="card chart-card-wide">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Attendance Trend</h3>
+              <p class="card-subtitle">Weekly average compared to last month</p>
+            </div>
+            <select class="select-sm">
+              <option>Last 7 Days</option>
+              <option>Last 30 Days</option>
+              <option>This Term</option>
+            </select>
+          </div>
+          <div class="chart-container" id="attendanceChart">
+            <canvas id="attendanceCanvas" width="600" height="220"></canvas>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-dot" style="background:#004ac6;"></span>This Week</span>
+            <span class="legend-item"><span class="legend-dot" style="background:#b4c5ff;"></span>Last Week</span>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Recent Activity</h3>
+            <button class="btn-link">View All</button>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#ba1a1a;"></div>
+              <div class="activity-content">
+                <p class="activity-title">John Doe marked as Absent</p>
+                <p class="activity-meta">Grade 11-B · 2 mins ago</p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#004ac6;"></div>
+              <div class="activity-content">
+                <p class="activity-title">Exam Results Published</p>
+                <p class="activity-meta">Final Term Grade 10 · 45 mins ago</p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#16a34a;"></div>
+              <div class="activity-content">
+                <p class="activity-title">New Staff Onboarded</p>
+                <p class="activity-meta">Sarah Jenkins (Science) · 2 hrs ago</p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#943700;"></div>
+              <div class="activity-content">
+                <p class="activity-title">Fee Collection Update</p>
+                <p class="activity-meta">Quarter 3 report ready · 4 hrs ago</p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#7c3aed;"></div>
+              <div class="activity-content">
+                <p class="activity-title">Grade 12 Promotion List</p>
+                <p class="activity-meta">Batch of 2025 approved · Yesterday</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Academic Performance + Donut Row -->
+      <div class="charts-row mt-6">
+        <!-- Bar Chart -->
+        <div class="card chart-card-wide">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Academic Performance</h3>
+              <p class="card-subtitle">Average scores across grades this term</p>
+            </div>
+            <div class="legend-row">
+              <span class="legend-item"><span class="legend-dot" style="background:#004ac6;"></span>Internal</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#d0e1fb;"></span>External</span>
+            </div>
+          </div>
+          <canvas id="performanceCanvas" width="600" height="200"></canvas>
+        </div>
+
+        <!-- Grade Distribution Donut -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Grade Distribution</h3>
+            <button class="btn-link">Details</button>
+          </div>
+          <div class="donut-wrap">
+            <canvas id="donutCanvas" width="180" height="180"></canvas>
+            <div class="donut-center">
+              <p class="donut-val">1,240</p>
+              <p class="donut-lbl">Total</p>
+            </div>
+          </div>
+          <div class="donut-legend">
+            <div class="donut-legend-item"><span class="legend-dot" style="background:#004ac6;"></span><span>Grade 8–9</span><span class="ml-auto font-600">310</span></div>
+            <div class="donut-legend-item"><span class="legend-dot" style="background:#2563eb;"></span><span>Grade 10</span><span class="ml-auto font-600">285</span></div>
+            <div class="donut-legend-item"><span class="legend-dot" style="background:#b4c5ff;"></span><span>Grade 11</span><span class="ml-auto font-600">340</span></div>
+            <div class="donut-legend-item"><span class="legend-dot" style="background:#dbe1ff;"></span><span>Grade 12</span><span class="ml-auto font-600">305</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="quick-links mt-6">
+        <div class="quick-link-card" onclick="navigateTo('students', document.querySelector('[data-page=students]'))">
+          <span class="material-symbols-outlined ql-icon" style="color:#004ac6;">group</span>
+          <span>Student Directory</span>
+          <span class="material-symbols-outlined ql-arrow">arrow_forward</span>
+        </div>
+        <div class="quick-link-card" onclick="navigateTo('attendance', document.querySelector('[data-page=attendance]'))">
+          <span class="material-symbols-outlined ql-icon" style="color:#16a34a;">event_available</span>
+          <span>Mark Attendance</span>
+          <span class="material-symbols-outlined ql-arrow">arrow_forward</span>
+        </div>
+        <div class="quick-link-card" onclick="navigateTo('marks', document.querySelector('[data-page=marks]'))">
+          <span class="material-symbols-outlined ql-icon" style="color:#943700;">grading</span>
+          <span>Enter Marks</span>
+          <span class="material-symbols-outlined ql-arrow">arrow_forward</span>
+        </div>
+        <div class="quick-link-card" onclick="navigateTo('reports', document.querySelector('[data-page=reports]'))">
+          <span class="material-symbols-outlined ql-icon" style="color:#7c3aed;">assessment</span>
+          <span>View Reports</span>
+          <span class="material-symbols-outlined ql-arrow">arrow_forward</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: STUDENTS ===== -->
+    <div class="page" id="page-students">
+      <div class="page-header">
+        <div class="breadcrumb">
+          <span>Home</span><span class="material-symbols-outlined bc-icon">chevron_right</span>
+          <span class="bc-active">Students</span>
+        </div>
+        <div class="page-title-row">
+          <div>
+            <h1 class="page-title">Student Directory</h1>
+            <p class="page-subtitle">Manage and view all enrolled student records across all grades.</p>
+          </div>
+          <div class="tab-group">
+            <button class="tab-btn active" onclick="setTab(this,'tab-students')">All Students</button>
+            <button class="tab-btn" onclick="setTab(this,'tab-admissions')">New Admissions</button>
+            <button class="tab-btn" onclick="setTab(this,'tab-withdrawn')">Withdrawn</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats + Filters -->
+      <div class="filter-stats-row">
+        <div class="mini-stat-card">
+          <div class="mini-stat-icon" style="background:#dbe1ff;color:#004ac6;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">groups</span>
+          </div>
+          <div>
+            <p class="mini-stat-label">Total Students</p>
+            <p class="mini-stat-value">1,284</p>
+          </div>
+        </div>
+        <div class="mini-stat-card">
+          <div class="mini-stat-icon" style="background:#dcfce7;color:#16a34a;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">check_circle</span>
+          </div>
+          <div>
+            <p class="mini-stat-label">Active Now</p>
+            <p class="mini-stat-value">1,240</p>
+          </div>
+        </div>
+        <div class="mini-stat-card">
+          <div class="mini-stat-icon" style="background:#ffdad6;color:#ba1a1a;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">warning</span>
+          </div>
+          <div>
+            <p class="mini-stat-label">Low Attendance</p>
+            <p class="mini-stat-value">24</p>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <div class="filter-field">
+            <label class="filter-label">Grade / Class</label>
+            <select class="select-input">
+              <option>All Grades</option>
+              <option>Grade 8</option>
+              <option>Grade 9</option>
+              <option>Grade 10</option>
+              <option>Grade 11</option>
+              <option>Grade 12</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="filter-label">Division</label>
+            <select class="select-input">
+              <option>All Divisions</option>
+              <option>Section A</option>
+              <option>Section B</option>
+              <option>Section C</option>
+            </select>
+          </div>
+          <button class="btn-outline-primary">
+            <span class="material-symbols-outlined" style="font-size:16px;">filter_list</span>
+            Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Student Table -->
+      <div class="card table-card mt-0">
+        <div class="table-toolbar">
+          <div class="table-search-wrap">
+            <span class="material-symbols-outlined" style="color:#737686;font-size:18px;">search</span>
+            <input type="text" class="table-search" placeholder="Search students..." oninput="filterStudents(this.value)" />
+          </div>
+          <button class="btn-secondary">
+            <span class="material-symbols-outlined" style="font-size:16px;">file_download</span>
+            Export
+          </button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="studentsTable">
+            <thead>
+              <tr>
+                <th>Admission #</th>
+                <th>Student Name</th>
+                <th>Grade</th>
+                <th>Division</th>
+                <th>Attendance %</th>
+                <th>Status</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentsBody">
+              <!-- Rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span class="table-info">Showing <strong>1–10</strong> of <strong>1,284</strong> students</span>
+          <div class="pagination">
+            <button class="page-btn" disabled><span class="material-symbols-outlined">chevron_left</span></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <span class="page-ellipsis">…</span>
+            <button class="page-btn">129</button>
+            <button class="page-btn"><span class="material-symbols-outlined">chevron_right</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Banner -->
+      <div class="cta-banner mt-6">
+        <div class="cta-blob"></div>
+        <div class="cta-content">
+          <h3 class="cta-title">Generate Semester Reports</h3>
+          <p class="cta-text">Bulk generate and distribute student performance reports for the current semester with a single click.</p>
+        </div>
+        <button class="cta-btn">Start Report Batch</button>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: ATTENDANCE ===== -->
+    <div class="page" id="page-attendance">
+      <div class="page-header">
+        <div class="breadcrumb">
+          <span>Home</span><span class="material-symbols-outlined bc-icon">chevron_right</span>
+          <span class="bc-active">Attendance</span>
+        </div>
+        <div class="page-title-row">
+          <div>
+            <h1 class="page-title">Attendance Register</h1>
+            <p class="page-subtitle">Track and manage student attendance for today – <span id="todayDate"></span></p>
+          </div>
+          <div class="flex-gap">
+            <button class="btn-secondary">
+              <span class="material-symbols-outlined" style="font-size:16px;">print</span>
+              Print Register
+            </button>
+            <button class="btn-primary" onclick="markAllPresent()">
+              <span class="material-symbols-outlined" style="font-size:16px;">done_all</span>
+              Mark All Present
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attendance Summary -->
+      <div class="kpi-grid kpi-grid--3">
+        <div class="kpi-card" style="--accent:#16a34a;--accent-bg:#dcfce7;">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">check_circle</span>
+            </div>
+          </div>
+          <p class="kpi-label">Present</p>
+          <p class="kpi-value" id="presentCount">1,180</p>
+        </div>
+        <div class="kpi-card" style="--accent:#ba1a1a;--accent-bg:#ffdad6;">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">cancel</span>
+            </div>
+          </div>
+          <p class="kpi-label">Absent</p>
+          <p class="kpi-value" id="absentCount">60</p>
+        </div>
+        <div class="kpi-card" style="--accent:#d97706;--accent-bg:#fef3c7;">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">schedule</span>
+            </div>
+          </div>
+          <p class="kpi-label">Late / Leave</p>
+          <p class="kpi-value">14</p>
+        </div>
+      </div>
+
+      <!-- Attendance Filters + Table -->
+      <div class="card mt-6">
+        <div class="card-header">
+          <h3 class="card-title">Grade 10 – Section A</h3>
+          <div class="flex-gap">
+            <select class="select-sm">
+              <option>Grade 10</option>
+              <option>Grade 11</option>
+              <option>Grade 12</option>
+            </select>
+            <select class="select-sm">
+              <option>Section A</option>
+              <option>Section B</option>
+              <option>Section C</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="attendanceTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Roll No.</th>
+                <th>Status</th>
+                <th>Remark</th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceBody">
+              <!-- JS Populated -->
+            </tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <button class="btn-primary" style="margin-left:auto;">
+            <span class="material-symbols-outlined" style="font-size:16px;">save</span>
+            Save Attendance
+          </button>
+        </div>
+      </div>
+
+      <!-- Monthly Heatmap -->
+      <div class="card mt-6">
+        <div class="card-header">
+          <h3 class="card-title">Monthly Attendance Overview</h3>
+          <select class="select-sm">
+            <option>July 2025</option>
+            <option>June 2025</option>
+            <option>May 2025</option>
+          </select>
+        </div>
+        <div class="heatmap" id="attendanceHeatmap"></div>
+        <div class="heatmap-legend">
+          <span>Less</span>
+          <span class="hm-cell" style="background:#e7e7f3;"></span>
+          <span class="hm-cell" style="background:#b4c5ff;"></span>
+          <span class="hm-cell" style="background:#2563eb;"></span>
+          <span class="hm-cell" style="background:#004ac6;"></span>
+          <span>More</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: MARKS / EXAMS ===== -->
+    <div class="page" id="page-marks">
+      <div class="page-header">
+        <div class="breadcrumb">
+          <span>Home</span><span class="material-symbols-outlined bc-icon">chevron_right</span>
+          <span class="bc-active">Exams & Marks</span>
+        </div>
+        <div class="page-title-row">
+          <div>
+            <h1 class="page-title">Marks Entry</h1>
+            <p class="page-subtitle">Record and publish examination results for each subject and grade.</p>
+          </div>
+          <div class="flex-gap">
+            <button class="btn-secondary">
+              <span class="material-symbols-outlined" style="font-size:16px;">upload_file</span>
+              Import CSV
+            </button>
+            <button class="btn-primary">
+              <span class="material-symbols-outlined" style="font-size:16px;">publish</span>
+              Publish Results
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exam Selector -->
+      <div class="exam-selector-row">
+        <div class="filter-field">
+          <label class="filter-label">Exam Type</label>
+          <select class="select-input">
+            <option>Final Term Examination</option>
+            <option>Mid-Term</option>
+            <option>Unit Test 1</option>
+            <option>Unit Test 2</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label class="filter-label">Grade</label>
+          <select class="select-input">
+            <option>Grade 10</option>
+            <option>Grade 11</option>
+            <option>Grade 12</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label class="filter-label">Division</label>
+          <select class="select-input">
+            <option>Section A</option>
+            <option>Section B</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label class="filter-label">Subject</label>
+          <select class="select-input">
+            <option>Mathematics</option>
+            <option>Science</option>
+            <option>English</option>
+            <option>Social Studies</option>
+            <option>Hindi</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Marks Table -->
+      <div class="card mt-6">
+        <div class="card-header">
+          <h3 class="card-title">Mathematics – Grade 10A</h3>
+          <div class="flex-gap">
+            <span class="badge badge--blue">Max Marks: 100</span>
+            <span class="badge badge--green">Pass Mark: 40</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="marksTable">
+            <thead>
+              <tr>
+                <th>Adm. #</th>
+                <th>Student Name</th>
+                <th>Internal (40)</th>
+                <th>External (60)</th>
+                <th>Total (100)</th>
+                <th>Grade</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="marksBody"></tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span class="table-info">Class Average: <strong>72.4 / 100</strong></span>
+          <button class="btn-primary" style="margin-left:auto;">
+            <span class="material-symbols-outlined" style="font-size:16px;">save</span>
+            Save Marks
+          </button>
+        </div>
+      </div>
+
+      <!-- Upcoming Exams -->
+      <div class="card mt-6">
+        <div class="card-header">
+          <h3 class="card-title">Upcoming Exams</h3>
+          <button class="btn-primary">
+            <span class="material-symbols-outlined" style="font-size:16px;">add</span>
+            Schedule Exam
+          </button>
+        </div>
+        <div class="exam-list" id="examList"></div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: STAFF ===== -->
+    <div class="page" id="page-staff">
+      <div class="page-header">
+        <div class="breadcrumb">
+          <span>Home</span><span class="material-symbols-outlined bc-icon">chevron_right</span>
+          <span class="bc-active">Staff Management</span>
+        </div>
+        <div class="page-title-row">
+          <div>
+            <h1 class="page-title">Staff Management</h1>
+            <p class="page-subtitle">Manage faculty, administrative, and support staff records.</p>
+          </div>
+          <button class="btn-primary">
+            <span class="material-symbols-outlined" style="font-size:16px;">person_add</span>
+            Add Staff
+          </button>
+        </div>
+      </div>
+
+      <div class="kpi-grid kpi-grid--4">
+        <div class="kpi-card" style="--accent:#004ac6;--accent-bg:#dbe1ff;">
+          <div class="kpi-top"><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">badge</span></div></div>
+          <p class="kpi-label">Total Staff</p>
+          <p class="kpi-value">85</p>
+        </div>
+        <div class="kpi-card" style="--accent:#16a34a;--accent-bg:#dcfce7;">
+          <div class="kpi-top"><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">school</span></div></div>
+          <p class="kpi-label">Teaching Staff</p>
+          <p class="kpi-value">62</p>
+        </div>
+        <div class="kpi-card" style="--accent:#7c3aed;--accent-bg:#ede9fe;">
+          <div class="kpi-top"><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">admin_panel_settings</span></div></div>
+          <p class="kpi-label">Admin Staff</p>
+          <p class="kpi-value">15</p>
+        </div>
+        <div class="kpi-card" style="--accent:#d97706;--accent-bg:#fef3c7;">
+          <div class="kpi-top"><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">engineering</span></div></div>
+          <p class="kpi-label">Support Staff</p>
+          <p class="kpi-value">8</p>
+        </div>
+      </div>
+
+      <div class="card mt-6">
+        <div class="table-toolbar">
+          <div class="table-search-wrap">
+            <span class="material-symbols-outlined" style="color:#737686;font-size:18px;">search</span>
+            <input type="text" class="table-search" placeholder="Search staff..." />
+          </div>
+          <div class="flex-gap">
+            <select class="select-sm">
+              <option>All Departments</option>
+              <option>Mathematics</option>
+              <option>Science</option>
+              <option>English</option>
+            </select>
+            <button class="btn-secondary">
+              <span class="material-symbols-outlined" style="font-size:16px;">file_download</span>
+              Export
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Staff ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Role</th>
+                <th>Subjects</th>
+                <th>Joined</th>
+                <th>Status</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="staffBody"></tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span class="table-info">Showing <strong>1–8</strong> of <strong>85</strong> staff</span>
+          <div class="pagination">
+            <button class="page-btn" disabled><span class="material-symbols-outlined">chevron_left</span></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><span class="material-symbols-outlined">chevron_right</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: MESSAGING ===== -->
+    <div class="page" id="page-messaging">
+      <div class="page-header">
+        <div class="breadcrumb">
+          <span>Home</span><span class="material-symbols-outlined bc-icon">chevron_right</span>
+          <span class="bc-active">Messaging</span>
+        </div>
+        <div class="page-title-row">
+          <div>
+            <h1 class="page-title">Messaging Service</h1>
+            <p class="page-subtitle">Send announcements, circulars, and direct messages to students and staff.</p>
+          </div>
+          <button class="btn-primary" onclick="openComposeModal()">
+            <span class="material-symbols-outlined" style="font-size:16px;">edit</span>
+            Compose
+          </button>
+        </div>
+      </div>
+
+      <div class="messaging-layout">
+        <!-- Inbox List -->
+        <div class="msg-sidebar">
+          <div class="msg-tabs">
+            <button class="msg-tab active">Inbox <span class="nav-badge">3</span></button>
+            <button class="msg-tab">Sent</button>
+            <button class="msg-tab">Drafts</button>
+          </div>
+          <div class="msg-list" id="msgList"></div>
+        </div>
+
+        <!-- Message View -->
+        <div class="msg-view" id="msgView">
+          <div class="msg-view-empty">
+            <span class="material-symbols-outlined" style="font-size:48px;color:#c3c6d7;">mail</span>
+            <p>Select a message to read</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: REPORTS ===== -->
+    <div class="page" id="page-reports">
+      <div class="page-header">
+        <div class="breadcrumb">
+          <span>Home</span><span class="material-symbols-outlined bc-icon">chevron_right</span>
+          <span class="bc-active">Reports</span>
+        </div>
+        <div class="page-title-row">
+          <div>
+            <h1 class="page-title">Reports & Analytics</h1>
+            <p class="page-subtitle">Generate and download comprehensive school performance reports.</p>
+          </div>
+          <div class="flex-gap">
+            <select class="select-input">
+              <option>Academic Year 2024–25</option>
+              <option>Academic Year 2023–24</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="reports-grid">
+        <!-- Report Card Types -->
+        <div class="report-card" onclick="downloadReport('attendance')">
+          <div class="report-icon" style="background:#dbe1ff;color:#004ac6;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">event_available</span>
+          </div>
+          <div class="report-info">
+            <h4>Attendance Report</h4>
+            <p>Student & staff attendance summary</p>
+          </div>
+          <button class="report-download-btn">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+        </div>
+        <div class="report-card" onclick="downloadReport('academic')">
+          <div class="report-icon" style="background:#dcfce7;color:#16a34a;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">assessment</span>
+          </div>
+          <div class="report-info">
+            <h4>Academic Performance</h4>
+            <p>Grade-wise performance analytics</p>
+          </div>
+          <button class="report-download-btn">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+        </div>
+        <div class="report-card" onclick="downloadReport('financial')">
+          <div class="report-icon" style="background:#fef3c7;color:#d97706;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">payments</span>
+          </div>
+          <div class="report-info">
+            <h4>Fee Collection Report</h4>
+            <p>Quarterly fee status and dues</p>
+          </div>
+          <button class="report-download-btn">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+        </div>
+        <div class="report-card" onclick="downloadReport('promotion')">
+          <div class="report-icon" style="background:#ede9fe;color:#7c3aed;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">trending_up</span>
+          </div>
+          <div class="report-info">
+            <h4>Promotion Report</h4>
+            <p>Grade promotion eligibility status</p>
+          </div>
+          <button class="report-download-btn">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+        </div>
+        <div class="report-card" onclick="downloadReport('staff')">
+          <div class="report-icon" style="background:#fce7f3;color:#db2777;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">badge</span>
+          </div>
+          <div class="report-info">
+            <h4>Staff Performance</h4>
+            <p>Teacher evaluation & appraisals</p>
+          </div>
+          <button class="report-download-btn">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+        </div>
+        <div class="report-card" onclick="downloadReport('enrollment')">
+          <div class="report-icon" style="background:#e0f2fe;color:#0284c7;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">group_add</span>
+          </div>
+          <div class="report-info">
+            <h4>Enrollment Report</h4>
+            <p>Admission and withdrawal trends</p>
+          </div>
+          <button class="report-download-btn">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Analytics Charts -->
+      <div class="charts-row mt-6">
+        <div class="card chart-card-wide">
+          <div class="card-header">
+            <h3 class="card-title">Year-over-Year Performance</h3>
+            <select class="select-sm">
+              <option>All Grades</option>
+              <option>Grade 10</option>
+              <option>Grade 12</option>
+            </select>
+          </div>
+          <canvas id="yoyCanvas" width="600" height="200"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Fee Collection Status</h3>
+          </div>
+          <canvas id="feeCanvas" width="280" height="200"></canvas>
+          <div class="donut-legend mt-4">
+            <div class="donut-legend-item"><span class="legend-dot" style="background:#004ac6;"></span><span>Paid</span><span class="ml-auto font-600">₹8.4L</span></div>
+            <div class="donut-legend-item"><span class="legend-dot" style="background:#ffdad6;"></span><span>Pending</span><span class="ml-auto font-600">₹1.2L</span></div>
+            <div class="donut-legend-item"><span class="legend-dot" style="background:#dbe1ff;"></span><span>Waiver</span><span class="ml-auto font-600">₹0.4L</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: PROMOTION ===== -->
+    <div class="page" id="page-promotion">
+      <div class="page-header">
+        <div class="breadcrumb">
+          <span>Home</span><span class="material-symbols-outlined bc-icon">chevron_right</span>
+          <span class="bc-active">Promotion</span>
+        </div>
+        <div class="page-title-row">
+          <div>
+            <h1 class="page-title">Academic Promotion</h1>
+            <p class="page-subtitle">Review and process grade promotions for all students at year-end.</p>
+          </div>
+          <div class="flex-gap">
+            <button class="btn-secondary">
+              <span class="material-symbols-outlined" style="font-size:16px;">preview</span>
+              Preview
+            </button>
+            <button class="btn-primary">
+              <span class="material-symbols-outlined" style="font-size:16px;">check_circle</span>
+              Confirm All
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="promo-steps">
+        <div class="promo-step done">
+          <div class="step-circle"><span class="material-symbols-outlined" style="font-size:16px;">check</span></div>
+          <div class="step-label">Review Marks</div>
+        </div>
+        <div class="step-line done"></div>
+        <div class="promo-step done">
+          <div class="step-circle"><span class="material-symbols-outlined" style="font-size:16px;">check</span></div>
+          <div class="step-label">Attendance Check</div>
+        </div>
+        <div class="step-line active"></div>
+        <div class="promo-step active">
+          <div class="step-circle">3</div>
+          <div class="step-label">Confirm Promotion</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="promo-step">
+          <div class="step-circle">4</div>
+          <div class="step-label">Issue TC / Admit</div>
+        </div>
+      </div>
+
+      <!-- Promotion Summary -->
+      <div class="kpi-grid mt-6">
+        <div class="kpi-card" style="--accent:#16a34a;--accent-bg:#dcfce7;">
+          <div class="kpi-top"><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">trending_up</span></div></div>
+          <p class="kpi-label">Promoted</p>
+          <p class="kpi-value">1,148</p>
+        </div>
+        <div class="kpi-card" style="--accent:#d97706;--accent-bg:#fef3c7;">
+          <div class="kpi-top"><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">pending</span></div></div>
+          <p class="kpi-label">Pending Review</p>
+          <p class="kpi-value">56</p>
+        </div>
+        <div class="kpi-card" style="--accent:#ba1a1a;--accent-bg:#ffdad6;">
+          <div class="kpi-top"><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">cancel</span></div></div>
+          <p class="kpi-label">Held Back</p>
+          <p class="kpi-value">36</p>
+        </div>
+        <div class="kpi-card" style="--accent:#0284c7;--accent-bg:#e0f2fe;">
+          <div class="kpi-top"><div class="kpi-icon" style="background:var(--accent-bg);color:var(--accent);"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">school</span></div></div>
+          <p class="kpi-label">Graduated (Gr 12)</p>
+          <p class="kpi-value">220</p>
+        </div>
+      </div>
+
+      <!-- Promotion Table -->
+      <div class="card mt-6">
+        <div class="card-header">
+          <h3 class="card-title">Promotion Status by Grade</h3>
+          <select class="select-sm">
+            <option>All Grades</option>
+            <option>Grade 10</option>
+            <option>Grade 11</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="promotionTable">
+            <thead>
+              <tr>
+                <th>Grade</th>
+                <th>Total Students</th>
+                <th>Promoted</th>
+                <th>Pending</th>
+                <th>Held Back</th>
+                <th>Promotion %</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="promotionBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: SETTINGS ===== -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div class="breadcrumb">
+          <span>Home</span><span class="material-symbols-outlined bc-icon">chevron_right</span>
+          <span class="bc-active">Settings</span>
+        </div>
+        <h1 class="page-title">System Settings</h1>
+      </div>
+
+      <div class="settings-layout">
+        <div class="settings-tabs">
+          <button class="settings-tab active" onclick="showSettingsSection('general', this)">
+            <span class="material-symbols-outlined">tune</span> General
+          </button>
+          <button class="settings-tab" onclick="showSettingsSection('academic', this)">
+            <span class="material-symbols-outlined">school</span> Academic
+          </button>
+          <button class="settings-tab" onclick="showSettingsSection('notifications', this)">
+            <span class="material-symbols-outlined">notifications</span> Notifications
+          </button>
+          <button class="settings-tab" onclick="showSettingsSection('security', this)">
+            <span class="material-symbols-outlined">lock</span> Security
+          </button>
+        </div>
+
+        <div class="settings-content">
+          <div class="settings-section active" id="settings-general">
+            <div class="card">
+              <h3 class="card-title mb-6">School Information</h3>
+              <div class="settings-form">
+                <div class="form-group">
+                  <label class="form-label">School Name</label>
+                  <input type="text" class="form-input" value="Edu One Model School" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Principal Name</label>
+                  <input type="text" class="form-input" value="Dr. Priya Sharma" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Board</label>
+                  <select class="select-input">
+                    <option>CBSE</option>
+                    <option>ICSE</option>
+                    <option>State Board</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Academic Year</label>
+                  <input type="text" class="form-input" value="2024–2025" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Address</label>
+                  <textarea class="form-textarea" rows="3">123 Education Lane, Knowledge City, KN 400001</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-input" value="admin@eduone.school" />
+                </div>
+              </div>
+              <div class="settings-actions">
+                <button class="btn-secondary">Reset</button>
+                <button class="btn-primary">Save Changes</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section" id="settings-academic">
+            <div class="card">
+              <h3 class="card-title mb-6">Academic Configuration</h3>
+              <div class="settings-form">
+                <div class="form-group">
+                  <label class="form-label">Grading System</label>
+                  <select class="select-input">
+                    <option>Percentage (0–100)</option>
+                    <option>CGPA (0–10)</option>
+                    <option>Letter Grade (A–F)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Pass Percentage</label>
+                  <input type="number" class="form-input" value="40" min="0" max="100" />
+                </div>
+                <div class="form-group toggle-group">
+                  <div>
+                    <label class="form-label">Allow Grace Marks</label>
+                    <p class="form-hint">Allows up to 5 grace marks per subject</p>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+                </div>
+                <div class="form-group toggle-group">
+                  <div>
+                    <label class="form-label">Auto-Promote on Criteria</label>
+                    <p class="form-hint">Automatically promote students meeting all criteria</p>
+                  </div>
+                  <label class="toggle"><input type="checkbox" /><span class="toggle-slider"></span></label>
+                </div>
+              </div>
+              <div class="settings-actions">
+                <button class="btn-secondary">Reset</button>
+                <button class="btn-primary">Save Changes</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section" id="settings-notifications">
+            <div class="card">
+              <h3 class="card-title mb-6">Notification Preferences</h3>
+              <div class="settings-form">
+                <div class="form-group toggle-group">
+                  <div>
+                    <label class="form-label">Email Notifications</label>
+                    <p class="form-hint">Send email alerts for critical events</p>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+                </div>
+                <div class="form-group toggle-group">
+                  <div>
+                    <label class="form-label">SMS Alerts</label>
+                    <p class="form-hint">Send SMS for attendance and exam results</p>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+                </div>
+                <div class="form-group toggle-group">
+                  <div>
+                    <label class="form-label">Parent Portal Notifications</label>
+                    <p class="form-hint">Notify parents via the parent portal app</p>
+                  </div>
+                  <label class="toggle"><input type="checkbox" /><span class="toggle-slider"></span></label>
+                </div>
+              </div>
+              <div class="settings-actions">
+                <button class="btn-primary">Save Changes</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section" id="settings-security">
+            <div class="card">
+              <h3 class="card-title mb-6">Security Settings</h3>
+              <div class="settings-form">
+                <div class="form-group">
+                  <label class="form-label">Current Password</label>
+                  <input type="password" class="form-input" placeholder="Enter current password" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">New Password</label>
+                  <input type="password" class="form-input" placeholder="Enter new password" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Confirm New Password</label>
+                  <input type="password" class="form-input" placeholder="Confirm new password" />
+                </div>
+                <div class="form-group toggle-group">
+                  <div>
+                    <label class="form-label">Two-Factor Authentication</label>
+                    <p class="form-hint">Require OTP on every login</p>
+                  </div>
+                  <label class="toggle"><input type="checkbox" /><span class="toggle-slider"></span></label>
+                </div>
+              </div>
+              <div class="settings-actions">
+                <button class="btn-primary">Update Password</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== COMPOSE MODAL ===== -->
+  <div class="modal-overlay" id="composeModal" style="display:none;" onclick="closeModalOnBg(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 class="modal-title">New Message</h3>
+        <button class="icon-btn" onclick="closeComposeModal()"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">To</label>
+          <select class="select-input">
+            <option>All Students</option>
+            <option>All Staff</option>
+            <option>All Parents</option>
+            <option>Grade 10 Students</option>
+            <option>Grade 11 Students</option>
+            <option>Grade 12 Students</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-input" placeholder="Message subject..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" rows="5" placeholder="Write your message here..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeComposeModal()">Cancel</button>
+        <button class="btn-primary">
+          <span class="material-symbols-outlined" style="font-size:16px;">send</span>
+          Send Message
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
